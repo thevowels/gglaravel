@@ -7,6 +7,7 @@ use App\Models\People;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
+use Illuminate\Support\Facades\Route;
 
 class PeopleController extends Controller
 {
@@ -18,8 +19,8 @@ class PeopleController extends Controller
         //
         // dump(People::all()->toArray());
         return Inertia::render('People/Index',[
-            // 'people'=>People::where('user_id',Auth::user()->id)->with('user:id,name,email')->get(),
-            'people'=>People::where('user_id',2)->with('user:id,name,email')->get(),
+            'people'=>People::where('user_id',Auth::user()->id)->with('user:id,name,email')->get(),
+            // 'people'=>People::where('user_id',2)->with('user:id,name,email')->get(),
         ]);
     }
 
@@ -33,16 +34,19 @@ class PeopleController extends Controller
     public function store(StorePeopleRequest $request)
     {
         //
-        // $request->validate();
+        // $request->validate()
+        // $validated = $request->validate();
+        $request->user()->people()->create($request->validated());
         sleep(rand(1,3));
         redirect(route('people.index'));    }
 
     /**
      * Display the specified resource.
      */
-    public function show(People $people)
+    public function show(People $person)
     {
-        //
+        
+        dump($person->toArray());
     }
 
     /**
@@ -64,8 +68,16 @@ class PeopleController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(People $people)
+    public function destroy(People $person)
     {
         //
+        // if($people->user_id == Auth::user()->id){
+        //     People::find($people->id)->delete();
+        // }
+        sleep(rand(1,2));
+        $person->delete();
+        // dump($person);
+        redirect(route('people.index'));    
+
     }
 }

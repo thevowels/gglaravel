@@ -34,8 +34,9 @@ Route::get('/users', function(Request $request){
     dump($request->user());
 });
 
-Route::resource('people', PeopleController::class)
-    ->only(['index','store'])
+
+Route::resource('/people', PeopleController::class)
+    ->only(['index','store', 'destroy','show'])
     ->middleware('auth');
 
 require __DIR__.'/auth.php';
