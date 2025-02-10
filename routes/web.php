@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PeopleController;
 use App\Http\Controllers\ProfileController;
 use App\Models\User;
 use Illuminate\Foundation\Application;
@@ -26,8 +27,11 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::get('/users', function(){
-    $users = User::all();
+    $users = User::inRandomOrder()->first();
     dump($users->toArray());
 });
+
+Route::resource('people', PeopleController::class)
+    ->only(['index']);
 
 require __DIR__.'/auth.php';
