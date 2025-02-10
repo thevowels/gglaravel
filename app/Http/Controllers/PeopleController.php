@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\People;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -15,7 +16,9 @@ class PeopleController extends Controller
     {
         //
         // dump(People::all()->toArray());
-        return Inertia::render('People/Index');
+        return Inertia::render('People/Index',[
+            'people'=>People::where('user_id',Auth::user()->id)->with('user:id,name,email')->get(),
+        ]);
     }
 
     public function abc(){

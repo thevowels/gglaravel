@@ -4,6 +4,7 @@ use App\Http\Controllers\PeopleController;
 use App\Http\Controllers\ProfileController;
 use App\Models\User;
 use Illuminate\Foundation\Application;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -26,11 +27,14 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::get('/users', function(){
-    $users = User::inRandomOrder()->first();
+Route::get('/users', function(Request $request){
+
+    $users = User::all();
     dump($users->toArray());
+    dump($request->user());
 });
 
 Route::resource('people', PeopleController::class)
-    ->only(['index']);
+    ->only(['index'])
+    ->middleware('auth');
 require __DIR__.'/auth.php';
