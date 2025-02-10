@@ -3,6 +3,7 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import {Head, usePage } from "@inertiajs/react";
 import PeopleCard from './Partials/PeopleCard';
 import PeopleGrid from './Partials/PeopleGrid';
+import AddUserForm from './Partials/AddUserForm';
 
 export default function Index({people}:{auth:any,people:any})
 {
@@ -25,10 +26,7 @@ export default function Index({people}:{auth:any,people:any})
             <Head title="People Blah Blah"/>
             <div className="py-12">
                 <div className="mx-auto max-w-7xl space-y-6 sm:px-6 lg:px-8">
-                        <div className="bg-white p-4 shadow sm:rounded-lg sm:p-8">
-                            Blah Blahgit
-                        </div>
-                        
+                        <AddUserForm/>
                         <div className="bg-white p-4 shadow sm:rounded-lg sm:p-8">
                             <PeopleGrid/>
                         </div>

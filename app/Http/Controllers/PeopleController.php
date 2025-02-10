@@ -22,10 +22,6 @@ class PeopleController extends Controller
         ]);
     }
 
-    public function abc(){
-        dump('This is ABC function from People Controller');
-    }
-
     /**
      * Show the form for creating a new resource.
      */
@@ -36,7 +32,8 @@ class PeopleController extends Controller
     public function store(Request $request)
     {
         //
-    }
+        sleep(2);
+        redirect(route('people.index'));    }
 
     /**
      * Display the specified resource.
