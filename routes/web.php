@@ -33,5 +33,4 @@ Route::get('/users', function(){
 
 Route::resource('people', PeopleController::class)
     ->only(['index']);
-
 require __DIR__.'/auth.php';

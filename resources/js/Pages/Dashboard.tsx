@@ -19,6 +19,11 @@ export default function Dashboard() {
                             You're logged in!
                         </div>
                     </div>
+                    <div className='overflow-hidden bg-white shadow-sm sm:rounded-md mt-8'>
+                        <div className="p-6 text-gray-900">
+                            User Management
+                        </div>
+                    </div>
                 </div>
             </div>
         </AuthenticatedLayout>
