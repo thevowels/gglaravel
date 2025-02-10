@@ -2,6 +2,9 @@ import { Link, useForm, usePage } from '@inertiajs/react';
 import { FormEventHandler } from 'react';
 import PrimaryButton from '@/Components/PrimaryButton';
 import { Transition } from '@headlessui/react';
+import InputLabel from '@/Components/InputLabel';
+import TextInput from '@/Components/TextInput';
+import InputError from '@/Components/InputError';
 
 
 export default function AddUserForm(){
@@ -18,8 +21,8 @@ export default function AddUserForm(){
         post(route('people.store'),  { onSuccess: () => reset() });
     }
     return(
-        <div className="bg-white p-4 shadow sm:rounded-lg sm:p-8">
-            <section>
+        <div className="bg-white p-4 max-w-7xl shadow sm:rounded-lg sm:p-8 flex justify-center">
+            <section className='max-w-sm'>
                 <header>
                     <h2 className="text-lg font-medium text-gray-900">
                         {user.name}
@@ -31,8 +34,35 @@ export default function AddUserForm(){
                 </header>
                 <form onSubmit={submit} className='mt-6 space-y-6'>
                     <div>
-                        Blah Blah
+                        <InputLabel htmlFor='name' value="Name" />
+                        <TextInput
+                            id="name"
+                            className="mt-1 block w-full"
+                            value = {data.name}
+                            onChange={(e)=> setData('name', e.target.value)}
+                            required
+                            isFocused
+                            autoComplete='name'
+                            />
+                        <InputError className="mt-2" message={errors.name} />
                     </div>
+
+                    <div>
+                        <InputLabel htmlFor='phone' value="Phone"/>
+
+                        <TextInput
+                            id="phone"
+                            className="mt-1 block w-full"
+                            value={data.phone}
+                            onChange={(e)=> setData('phone', e.target.value)}
+                            required
+                            autoComplete='phone'
+                        />
+                        <InputError className="mt-2" message={errors.phone} />
+
+
+                    </div>
+
                     <div className='flex items-center gap-4'>
                         <PrimaryButton disabled={processing}>Save</PrimaryButton>
                         <Transition

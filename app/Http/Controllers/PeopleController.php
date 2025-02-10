@@ -32,7 +32,7 @@ class PeopleController extends Controller
     public function store(Request $request)
     {
         //
-        sleep(2);
+        sleep(rand(1,5));
         redirect(route('people.index'));    }
 
     /**
