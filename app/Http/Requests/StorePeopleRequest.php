@@ -26,4 +26,13 @@ class StorePeopleRequest extends FormRequest
             'phone' => ['required', 'min:6','max:15']
         ];
     }
+    public function messages(): array
+{
+    return [
+        'name.required' => 'နာမည်ရိုက်ထည့်ပါ',
+        'name.min' => 'နာမည် တိုလွန်းပါသည်',
+    ];
+}
+
+
 }
