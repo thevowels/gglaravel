@@ -55,9 +55,10 @@ class PeopleController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(People $people)
+    public function edit(People $person)
     {
         //
+        dump($person);
     }
 
     /**
