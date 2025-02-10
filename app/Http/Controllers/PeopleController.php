@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StorePeopleRequest;
 use App\Models\People;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
@@ -29,14 +30,11 @@ class PeopleController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StorePeopleRequest $request)
     {
         //
-        $request->validate([
-            'name'=> ['required', 'max:30', 'min:5'],
-            'phone' => ['required', 'min:6','max:10']
-        ]);
-        sleep(rand(1,5));
+        // $request->validate();
+        sleep(rand(1,3));
         redirect(route('people.index'));    }
 
     /**
