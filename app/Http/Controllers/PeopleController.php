@@ -32,6 +32,10 @@ class PeopleController extends Controller
     public function store(Request $request)
     {
         //
+        $request->validate([
+            'name'=> ['required', 'max:30', 'min:5'],
+            'phone' => ['required', 'min:6','max:10']
+        ]);
         sleep(rand(1,5));
         redirect(route('people.index'));    }
 

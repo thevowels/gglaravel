@@ -37,4 +37,5 @@ Route::get('/users', function(Request $request){
 Route::resource('people', PeopleController::class)
     ->only(['index','store'])
     ->middleware('auth');
+
 require __DIR__.'/auth.php';
