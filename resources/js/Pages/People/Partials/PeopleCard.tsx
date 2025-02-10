@@ -3,7 +3,7 @@ import Modal from "@/Components/Modal";
 import PrimaryButton from "@/Components/PrimaryButton";
 import SecondaryButton from "@/Components/SecondaryButton";
 import { Button, Input } from "@headlessui/react";
-import { useForm } from "@inertiajs/react";
+import { useForm, Link } from "@inertiajs/react";
 import { FormEventHandler, useState } from "react";
 import { useRoute } from "../../../../../vendor/tightenco/ziggy/src/js";
 export default function PeopleCard({person}:{person:any}){
@@ -16,7 +16,7 @@ export default function PeopleCard({person}:{person:any}){
     const {delete:destroy}=useForm();
 
     function detail(){
-        console.log(person.name );
+        route('people.show', person);
     }
     const remove: FormEventHandler = (e) => {
         e.preventDefault();
@@ -46,9 +46,13 @@ export default function PeopleCard({person}:{person:any}){
             </div>
             }
             <div className="flex justify-center my-4">
-                <PrimaryButton  onClick={detail}>
+                <Link
+                    href={route('people.show', person)}
+                    className="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 bg-neutral-200 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white"
+                >
                     Details
-                </PrimaryButton>
+                </Link>
+
             </div>
             <Modal show={confirmDelete} onClose={closeModal}>
                 <form onSubmit={remove} className="p-6">

@@ -8,8 +8,7 @@ import AddUserForm from './Partials/AddUserForm';
 export default function Index({people}:{auth:any,people:any})
 {
 
-        const user = usePage().props.auth.user;
-        console.log(usePage().props);
+    const user = usePage().props.auth.user;
     return(
         <AuthenticatedLayout
             header={

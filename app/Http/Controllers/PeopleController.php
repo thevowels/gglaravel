@@ -45,8 +45,11 @@ class PeopleController extends Controller
      */
     public function show(People $person)
     {
+
+        return Inertia::render('People/Person', [
+            'person' => $person,
+        ]);
         
-        dump($person->toArray());
     }
 
     /**
