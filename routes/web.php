@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\PeopleController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\TransactionController;
 use App\Models\User;
 use Illuminate\Foundation\Application;
 use Illuminate\Http\Request;
@@ -35,8 +36,12 @@ Route::get('/users', function(Request $request){
 });
 
 
-Route::resource('/people', PeopleController::class)
+Route::resource('people', PeopleController::class)
     ->only(['index','store', 'destroy','show', 'edit', 'update'])
+    ->middleware('auth');
+
+Route::resource('people.transactions', TransactionController::class)
+    ->only(['index'])
     ->middleware('auth');
 
 require __DIR__.'/auth.php';
