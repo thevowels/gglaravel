@@ -58,15 +58,26 @@ class PeopleController extends Controller
     public function edit(People $person)
     {
         //
-        dump($person);
+        return Inertia::render('People/Edit', [
+            'person'=>$person,
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, People $people)
+    public function update(StorePeopleRequest $request, People $person)
     {
         //
+        $updatedPerson = People::updateOrCreate(
+            ['id'=>$person->id],
+            $request->validated()
+        );
+        // dd($updatedPerson);
+        // dump($request->validated());
+        // dd($person->id);
+
+        return redirect(route('people.show', $person));    
     }
 
     /**
@@ -81,7 +92,7 @@ class PeopleController extends Controller
         sleep(rand(1,2));
         $person->delete();
         // dump($person);
-        redirect(route('people.index'));    
+        return redirect(route('people.index'));    
 
     }
 }

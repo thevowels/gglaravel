@@ -13,7 +13,7 @@ class People extends Model
     //
     protected $fillable = [
         'name',
-        'phone_number',
+        'phone',
         'picture'
     ];
     

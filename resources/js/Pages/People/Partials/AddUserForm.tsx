@@ -7,18 +7,24 @@ import TextInput from '@/Components/TextInput';
 import InputError from '@/Components/InputError';
 
 
-export default function AddUserForm(){
+export default function AddUserForm({toEdit}:{toEdit?:any}){
 
     const user = usePage().props.auth.user;
-    const {data, setData, post, errors, processing, reset, recentlySuccessful } = 
+    console.log('Add/Edit form ', toEdit ? true:false);
+    const {data, setData, post, put,  errors, processing, reset, recentlySuccessful } = 
             useForm({
-                name:'',
-                phone: '',
+                name:toEdit?.name || '',
+                phone: toEdit?.phone || '',
 
             })
     const submit: FormEventHandler = (e) => {
         e.preventDefault();
-        post(route('people.store'),  { onSuccess: () => reset() });
+        if(toEdit){
+            put(route('people.update', toEdit), {onSuccess: () => reset()});
+        }else{
+            post(route('people.store'),  { onSuccess: () => reset() });
+
+        }
     }
     return(
         <div className="bg-white p-4 max-w-7xl shadow sm:rounded-lg sm:p-8 flex justify-center">
@@ -59,7 +65,6 @@ export default function AddUserForm(){
                             autoComplete='phone'
                         />
                         <InputError className="mt-2" message={errors.phone} />
-
 
                     </div>
 
