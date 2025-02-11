@@ -1,6 +1,11 @@
 import { usePage } from "@inertiajs/react"
+import dayjs from 'dayjs';
+import relativeTime from 'dayjs/plugin/relativeTime';
+
+
 
 export default function RelatedTRansactions(){
+    dayjs.extend(relativeTime);
 
     const transactions:any = usePage().props.transactions;
 
@@ -11,7 +16,7 @@ export default function RelatedTRansactions(){
 
             Related Transactions
                 <div>
-                {transactions && transactions.map((transaction:any) => <div key={transaction.id}>{transaction.amount}</div>)}
+                {transactions && transactions.map((transaction:any) => <div key={transaction.id}>{transaction.amount} <span>{dayjs(transaction.created_at).fromNow()}</span></div>)}
 
                 </div>
             </div>
