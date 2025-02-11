@@ -1,3 +1,4 @@
+import PrimaryButton from "@/Components/PrimaryButton";
 import { usePage } from "@inertiajs/react"
 
 export default function PersonInfo(){

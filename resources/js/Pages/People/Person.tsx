@@ -1,9 +1,11 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
-import { Head } from '@inertiajs/react';
+import { Head, Link} from '@inertiajs/react';
 import PersonInfo from './Partials/PersonInfo';
-
+import PrimaryButton from '@/Components/PrimaryButton';
+import { useRoute } from "../../../../vendor/tightenco/ziggy/src/js";
 export default function Person({auth,person}:{auth:any,person:any}){
-    console.log('people rendered ', person)
+    const route = useRoute();
+
     return(
         <AuthenticatedLayout
             header={
@@ -11,6 +13,9 @@ export default function Person({auth,person}:{auth:any,person:any}){
                     <div>
                         Person Detail
                     </div>
+                    <Link href={route('people.edit', person)}>
+                        Edit
+                    </Link>
                 </div>
             }
         >
