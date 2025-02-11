@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StorePeopleRequest;
 use App\Models\People;
+use App\Models\Transaction;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -20,6 +21,7 @@ class PeopleController extends Controller
         // dump(People::all()->toArray());
         return Inertia::render('People/Index',[
             'people'=>People::where('user_id',Auth::user()->id)->with('user:id,name,email')->get(),
+            'transactions' => Transaction::where('user_id', Auth::user()->id)->get(),
             // 'people'=>People::where('user_id',2)->with('user:id,name,email')->get(),
         ]);
     }

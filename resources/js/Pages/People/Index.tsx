@@ -5,10 +5,11 @@ import PeopleCard from './Partials/PeopleCard';
 import PeopleGrid from './Partials/PeopleGrid';
 import AddUserForm from './Partials/AddUserForm';
 
-export default function Index({people}:{auth:any,people:any})
+export default function Index({people, transactions}:{auth:any,people:any,transactions:any})
 {
 
     const user = usePage().props.auth.user;
+    console.log(transactions);
     return(
         <AuthenticatedLayout
             header={
