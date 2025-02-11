@@ -7,7 +7,7 @@ export default function PeopleGrid(){
 
     console.log('log form people grid', peoples);
     return(
-        <div className="grid grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 ">
             {peoples.map((x:any)=><PeopleCard key={x.id} person={x}/>)}
         </div>
     )

@@ -1,12 +1,20 @@
 <?php
 
+use App\Models\User;
+use App\Models\People;
+use App\Models\Transaction;
+
+
 use App\Http\Controllers\PeopleController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TransactionController;
-use App\Models\User;
+
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
+
 use Illuminate\Foundation\Application;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Route;
+
 use Inertia\Inertia;
 
 Route::get('/', function () {
@@ -19,7 +27,10 @@ Route::get('/', function () {
 });
 
 Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
+    return Inertia::render('Dashboard',[
+        'people'=>People::where('user_id',Auth::user()->id)->with('user:id,name,email')->get(),
+        'transactions' => Transaction::with('people:id,name')->where('user_id', Auth::user()->id)->get(),
+]);
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {

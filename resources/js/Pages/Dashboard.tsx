@@ -1,5 +1,6 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head } from '@inertiajs/react';
+import UserSummary from './Partials/UserSummary';
 
 export default function Dashboard() {
     return (
@@ -19,11 +20,8 @@ export default function Dashboard() {
                             You're logged in!
                         </div>
                     </div>
-                    <div className='overflow-hidden bg-white shadow-sm sm:rounded-md mt-8'>
-                        <div className="p-6 text-gray-900">
-                            User Management
-                        </div>
-                    </div>
+
+                    <UserSummary/>
                 </div>
             </div>
         </AuthenticatedLayout>

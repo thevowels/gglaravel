@@ -27,7 +27,7 @@ export default function PeopleCard({person}:{person:any}){
     }
 
     return (
-        <div className=" bg-slate-100 shadow-md pt-4 px-4 pb-8">
+        <div className=" bg-slate-100 shadow-md pt-4 pb-8 min-w-72 sm:min-w-none mx-auto sm:mx-0">
             <div className="flex justify-end">
                 <DangerButton onClick={()=>setConfirmDelete(true)}>
                     X
