@@ -21,6 +21,8 @@ class People extends Model
     {
         return $this->belongsTo(User::class,'user_id');
     }
+
+    
     public function getRouteKeyName(): string
     {
         return 'id';

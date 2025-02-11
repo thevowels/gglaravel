@@ -58,6 +58,7 @@ class PeopleController extends Controller
     public function edit(People $person)
     {
         //
+        
         return Inertia::render('People/Edit', [
             'person'=>$person,
         ]);
