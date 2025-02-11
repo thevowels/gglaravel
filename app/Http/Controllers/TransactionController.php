@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreTransactionRequest;
 use App\Http\Requests\UpdateTransactionRequest;
+use App\Models\People;
 use App\Models\Transaction;
 
 class TransactionController extends Controller
@@ -28,9 +29,14 @@ class TransactionController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreTransactionRequest $request)
+    public function store(StoreTransactionRequest $request, People $person)
     {
         //
+        // dd($request->validated());
+        // dd($person->transactions()->create($request->validated()));
+        // dd($request->user()->people()->get());
+        $request->user()->transactions()->create($request->validated());
+        redirect(route('people.show', $person));
     }
 
     /**

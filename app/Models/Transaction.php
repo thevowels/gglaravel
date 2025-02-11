@@ -11,6 +11,12 @@ class Transaction extends Model
 {
     /** @use HasFactory<\Database\Factories\TransactionFactory> */
     use HasFactory;
+    
+    protected $fillable = [
+        'amount',
+        'loan',
+        'people_id',
+    ];
 
     public function people(): BelongsTo
     {
@@ -20,4 +26,9 @@ class Transaction extends Model
     {
         return $this->belongsTo(User::class, 'user_id');
     }
+    public function getRouteKeyName(): string
+    {
+        return 'id';
+    }
+
 }

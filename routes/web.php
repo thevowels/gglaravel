@@ -52,7 +52,6 @@ Route::resource('people', PeopleController::class)
     ->middleware('auth');
 
 Route::resource('people.transactions', TransactionController::class)
-    ->only(['index'])
+    ->only(['index', 'store'])
     ->middleware('auth');
-
 require __DIR__.'/auth.php';

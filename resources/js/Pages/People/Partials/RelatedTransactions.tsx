@@ -4,11 +4,12 @@ import Modal from "@/Components/Modal";
 import PrimaryButton from "@/Components/PrimaryButton";
 import SecondaryButton from "@/Components/SecondaryButton";
 import TextInput from "@/Components/TextInput";
-import { Button } from "@headlessui/react";
+import { Switch } from "@headlessui/react";
 import { useForm, usePage } from "@inertiajs/react"
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import { FormEventHandler, useState } from "react";
+
 
 
 
@@ -17,13 +18,12 @@ export default function RelatedTRansactions(){
     const transactions:any = usePage().props.transactions;
     const person:any = usePage().props.person;
 
-    const {data, setData, post, errors, processing, reset, recentlySuccessful } = useForm(
-        {
-            person_id: person.id,
-            amount:"",
-            loan: false,
-        }
-    ) 
+    const { data, setData, post, processing, errors, reset } = useForm({
+        people_id: person.id,
+        amount:"",
+        loan: true,
+      })
+      
 
 
     const [addForm, setAddForm ] = useState(false);
@@ -36,6 +36,7 @@ export default function RelatedTRansactions(){
     const addTransaction:FormEventHandler = (e)=>{
         e.preventDefault();
         console.log('submitted', data);
+        post(route('people.transactions.store',person), {onSuccess: () => reset()});
         closeModal();
         
     }
@@ -55,10 +56,10 @@ export default function RelatedTRansactions(){
                             </div>)}
                 <div className="text-right mt-5 mx-4">
                     <PrimaryButton onClick={openModal}>Add</PrimaryButton>
-                    <Modal show={addForm} onClose={closeModal} >
+                    <Modal show={addForm} onClose={closeModal} maxWidth="md" >
                         <form onSubmit={addTransaction} className="m-6 space-y-6 ">
-                            <h2>Blah Blah</h2>
-                            <div>
+                            <h2>{person.name}</h2>
+                            <div className="max-w-md">
                                 <InputLabel htmlFor="amount" value="Amount"/>
                                 <TextInput
                                     id="amount"
@@ -70,7 +71,15 @@ export default function RelatedTRansactions(){
                                 />
                             </div>
                             <div >
-                                <InputLabel htmlFor="loan" value="Loan/Return"/>
+                                <InputLabel htmlFor="loan" value={data.loan? "Loan":"Return"}/>
+                                <Switch
+                                    checked={data.loan}
+                                    onChange={(e:any)=> setData('loan', e)}
+                                    className="group inline-flex h-6 w-11 items-center rounded-full bg-gray-200 transition data-[checked]:bg-blue-600"
+                                    >
+                                        <span className="size-4 translate-x-1 rounded-full bg-white transition group-data-[checked]:translate-x-6" />
+                                </Switch>
+
                             </div>
 
                             <div className="mt-6 flex justify-end">
