@@ -12,7 +12,7 @@ class Transaction extends Model
     /** @use HasFactory<\Database\Factories\TransactionFactory> */
     use HasFactory;
 
-    public function person(): BelongsTo
+    public function people(): BelongsTo
     {
         return $this->belongsTo(People::class,'person_id');
     }
