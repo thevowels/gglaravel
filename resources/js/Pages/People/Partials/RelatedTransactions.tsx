@@ -16,7 +16,7 @@ export default function RelatedTRansactions(){
 
             Related Transactions
                 <div>
-                {transactions && transactions.map((transaction:any) => <div key={transaction.id}>{transaction.amount} <span>{dayjs(transaction.created_at).fromNow()}</span></div>)}
+                {transactions && transactions.map((transaction:any) => <div key={transaction.id}>{transaction.amount} <span className="px-4">{dayjs(transaction.created_at).fromNow()}</span>{transaction.loan? 'loan':'return'}</div>)}
 
                 </div>
             </div>

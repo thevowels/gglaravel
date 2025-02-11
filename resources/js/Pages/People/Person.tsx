@@ -22,7 +22,7 @@ export default function Person({auth,person, transactions}:{auth:any,person:any,
             <Head title={person.name}/>
             <div className="py-12">
                 <div className="mx-auto max-w-7xl space-y-6 sm:px-6 lg:px-8">
-                    <PersonInfo/>
+                    <PersonInfo />
                     
                     <div className="bg-white p-4 max-w-7xl shadow sm:rounded-lg sm:p-8 flex  ">
                         Additional Todos
