@@ -45,9 +45,9 @@ class PeopleController extends Controller
      */
     public function show(People $person)
     {
-
         return Inertia::render('People/Person', [
             'person' => $person,
+            'transactions' => $person->transactions()->get(),
         ]);
         
     }
