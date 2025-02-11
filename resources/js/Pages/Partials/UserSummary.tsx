@@ -49,16 +49,19 @@ export default function UserSummary(){
         </section>
 
         <section id="transactions" className='overflow-hidden bg-white shadow-sm sm:rounded-md mt-8'>
-            <div className="p-6 ">
-                Transactions
+            <div className="p-6">
+            Transactions
+
+            <div className="max-w-lg mx-auto">
                 {transactions.slice(0,5).map((transaction: any) => 
-                            <div className="flex justify-between mx-8" key={transaction.id}>
-                                 <div>{transaction.people.name}</div> 
-                                 <div>{transaction.amount}</div>
+                            <div className="flex justify-between items-center text-sm font-medium my-2 border-b border-gray-300 " key={transaction.id}>
+                                 <div className="w-32">{transaction.people.name}</div> 
+                                 <div className="">{transaction.amount}</div>
                                  <div>{dayjs(transaction.created_at).format('DD/MM/YYYY HH:mm')}</div> 
                             </div>)}
                 <div>
                     Load More
+                </div>
                 </div>
             </div>
 
