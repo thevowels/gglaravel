@@ -8,7 +8,6 @@ import { FormEventHandler, useState } from "react";
 import { useRoute } from "../../../../../vendor/tightenco/ziggy/src/js";
 export default function PeopleCard({person}:{person:any}){
 
-    console.log(person);
     const transactions:any = person.transactions;
     const accumulatedResult = transactions.reduce((a:any,b:any)=> {
         if(b.loan){
