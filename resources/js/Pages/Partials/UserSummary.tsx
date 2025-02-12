@@ -1,11 +1,12 @@
 
+import PrimaryButton from "@/Components/PrimaryButton";
 import { usePage } from "@inertiajs/react"
 import dayjs from "dayjs";
+import { useState } from "react";
 
 
 export default function UserSummary(){
     const transactions:any = usePage().props.transactions;
-
     const accumulatedResult = transactions.reduce((a:any,b:any)=> {
         if(b.loan){
             a.loan+=b.amount;
@@ -15,9 +16,8 @@ export default function UserSummary(){
         return a;
     },{loan:0,repay:0});
 
-    console.log('User summary ' ,transactions);
-    console.log('User summary ' ,transactions.slice(0,5));
-    console.log('Summary' , accumulatedResult);
+    const [showAll, setShowAll ] = useState(false);
+
     return(
         <div>
         <section id="summary" className='overflow-hidden bg-white shadow-sm sm:rounded-md mt-8'>
@@ -53,14 +53,30 @@ export default function UserSummary(){
             Transactions
 
             <div className="max-w-lg mx-auto">
-                {transactions.slice(0,5).map((transaction: any) => 
+                {showAll ?
+                        transactions.map((transaction: any) => 
+                            <div className="flex justify-between items-center text-sm font-medium my-2 border-b border-gray-300 " key={transaction.id}>
+                                <div className="w-32">{transaction.people.name}</div> 
+                                <div className="">{transaction.amount}</div>
+                                <div>{dayjs(transaction.created_at).format('DD/MM/YYYY HH:mm')}</div> 
+                            </div>)                
+                        :
+                        transactions.slice(0,5).map((transaction: any) => 
                             <div className="flex justify-between items-center text-sm font-medium my-2 border-b border-gray-300 " key={transaction.id}>
                                  <div className="w-32">{transaction.people.name}</div> 
                                  <div className="">{transaction.amount}</div>
                                  <div>{dayjs(transaction.created_at).format('DD/MM/YYYY HH:mm')}</div> 
                             </div>)}
-                <div>
-                    Load More
+                <div className="text-center text-muted text-blue-800 mt-4">
+                    {showAll ? 
+                        <PrimaryButton onClick={() => setShowAll(false)}>
+                            Collapse
+                        </PrimaryButton>
+                        :
+                        <PrimaryButton onClick={ ()=> setShowAll(true)}>
+                            Load More
+                        </PrimaryButton>
+                    }   
                 </div>
                 </div>
             </div>
