@@ -3,11 +3,22 @@ import Modal from "@/Components/Modal";
 import PrimaryButton from "@/Components/PrimaryButton";
 import SecondaryButton from "@/Components/SecondaryButton";
 import { Button, Input } from "@headlessui/react";
-import { useForm, Link } from "@inertiajs/react";
+import { useForm, Link, usePage } from "@inertiajs/react";
 import { FormEventHandler, useState } from "react";
 import { useRoute } from "../../../../../vendor/tightenco/ziggy/src/js";
 export default function PeopleCard({person}:{person:any}){
 
+    const transactions:any = usePage().props.transactions;
+    const accumulatedResult = transactions.reduce((a:any,b:any)=> {
+        if(b.loan){
+            a.loan+=b.amount;
+        }else{
+            a.repay+=b.amount;
+        }
+        return a;
+    },{loan:0,repay:0});
+    const netLoan = accumulatedResult.loan - accumulatedResult.repay;
+    
     const [confirmDelete, setConfirmDelete] = useState(false);
     const route = useRoute();
     const closeModal = () => {
@@ -35,8 +46,11 @@ export default function PeopleCard({person}:{person:any}){
 
             </div>
             <img src="https://dummyjson.com/icon/emilys/128" className="mx-auto"/>
-            <div className="text-center text-xl font-bold py-4">
+            <div className="text-center text-xl font-bold pt-4">
             {person.name} 
+            </div>
+            <div className="text-center text-xl font-bold pb-8 ">
+             Net Loan <span className="text-red-500">{netLoan}</span> 
             </div>
             <div className="font-semibold text-sm">
                 Phone: {person.phone}

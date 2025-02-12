@@ -23,7 +23,6 @@ export default function AddUserForm({toEdit}:{toEdit?:any}){
             put(route('people.update', toEdit), {onSuccess: () => reset()});
         }else{
             post(route('people.store'),  { onSuccess: () => reset() });
-
         }
     }
     return(

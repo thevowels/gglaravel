@@ -38,7 +38,6 @@ class PeopleController extends Controller
         //
         // $request->validate()
         // $validated = $request->validate();
-        dd($request);
         $request->user()->people()->create($request->validated());
         sleep(rand(1,3));
         redirect(route('people.index'));    }
