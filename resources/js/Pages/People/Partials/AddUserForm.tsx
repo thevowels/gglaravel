@@ -1,5 +1,5 @@
 import { Link, useForm, usePage } from '@inertiajs/react';
-import { FormEventHandler } from 'react';
+import { FormEventHandler, useState } from 'react';
 import PrimaryButton from '@/Components/PrimaryButton';
 import { Transition } from '@headlessui/react';
 import InputLabel from '@/Components/InputLabel';
@@ -9,8 +9,10 @@ import InputError from '@/Components/InputError';
 
 export default function AddUserForm({toEdit}:{toEdit?:any}){
 
+    const [addUser, setAddUser] = useState(false);
+
     const user = usePage().props.auth.user;
-    console.log('Add/Edit form ', toEdit ? true:false);
+    // console.log('Add/Edit form ', toEdit ? true:false);
     const {data, setData, post, put,  errors, processing, reset, recentlySuccessful } = 
             useForm({
                 name:toEdit?.name || '',
@@ -22,12 +24,14 @@ export default function AddUserForm({toEdit}:{toEdit?:any}){
         if(toEdit){
             put(route('people.update', toEdit), {onSuccess: () => reset()});
         }else{
-            post(route('people.store'),  { onSuccess: () => reset() });
+            post(route('people.store'),  { onSuccess: () =>{reset(); setAddUser(false);}  });
         }
     }
     return(
         <div className="bg-white p-4 max-w-7xl shadow sm:rounded-lg sm:p-8 flex justify-center">
-            <section className='max-w-sm'>
+            {
+                addUser ? 
+                <section className='max-w-sm'>
                 <header>
                     <h2 className="text-lg font-medium text-gray-900">
                         {user.name}
@@ -85,6 +89,14 @@ export default function AddUserForm({toEdit}:{toEdit?:any}){
                 </form>
 
             </section>
+
+            :
+            <PrimaryButton onClick={()=>setAddUser(true)}>
+                Add User
+            </PrimaryButton>
+    
+
+            }
         </div>
     )
 }

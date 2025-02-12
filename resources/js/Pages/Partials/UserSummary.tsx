@@ -57,18 +57,21 @@ export default function UserSummary(){
 
             <div className="max-w-lg mx-auto">
                 {showAll ?
-                        <div>
+                        <div className=" flex flex-col h-[350px] justify-between">
+                            <div>
+
                             {paginated.data.map((transaction: any) => 
                                 <div className="flex justify-between items-center text-sm font-medium my-2 border-b border-gray-300 " key={transaction.id}>
                                     <div className="w-32">{transaction.people.name}</div> 
                                     <div className="">{transaction.amount}</div>
                                     <div>{dayjs(transaction.created_at).format('DD/MM/YYYY HH:mm')}</div> 
                                 </div>)   
-                            }             
-                        <div className="justify-between flex mx-4">
-                        <Link href={paginated.prev_page_url}>Previous</Link>
-                        <Link href={paginated.next_page_url}>Next</Link>
-                        </div>
+                            }
+                            </div>    
+                            <div className="justify-between flex mx-4 ">
+                            <Link href={paginated.prev_page_url} className=" bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-lg">Previous</Link>
+                            <Link href={paginated.next_page_url} className=" bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-lg">Next</Link>
+                            </div>
                         </div>
                         :
                         transactions.slice(0,5).map((transaction: any) => 

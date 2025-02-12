@@ -20,7 +20,7 @@ class PeopleController extends Controller
         //
         // dump(People::all()->toArray());
         return Inertia::render('People/Index',[
-            'people'=>People::where('user_id',Auth::user()->id)->with('user:id,name,email')->get(),
+            'people'=>People::where('user_id',Auth::user()->id)->with('user:id,name,email')->with('transactions')->get(),
             'transactions' => Transaction::where('user_id', Auth::user()->id)->get(),
             // 'people'=>People::where('user_id',2)->with('user:id,name,email')->get(),
         ]);
