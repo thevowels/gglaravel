@@ -24,7 +24,7 @@ class StoreTransactionRequest extends FormRequest
         return [
             //
             'people_id'=>['required'],
-            'amount'=>['required', 'gt:0'],
+            'amount'=>['required','numeric', 'gt:0'],
             'loan'=> ['boolean']
         ];
     }

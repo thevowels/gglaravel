@@ -1,4 +1,5 @@
 import Dropdown from "@/Components/Dropdown";
+import InputError from "@/Components/InputError";
 import InputLabel from "@/Components/InputLabel";
 import Modal from "@/Components/Modal";
 import PrimaryButton from "@/Components/PrimaryButton";
@@ -36,8 +37,7 @@ export default function RelatedTRansactions(){
     const addTransaction:FormEventHandler = (e)=>{
         e.preventDefault();
         console.log('submitted', data);
-        post(route('people.transactions.store',person), {onSuccess: () => reset()});
-        closeModal();
+        post(route('people.transactions.store',person), {onSuccess: () => {reset();closeModal();}});
         
     }
     
@@ -69,6 +69,7 @@ export default function RelatedTRansactions(){
                                     required
                                     isFocused
                                 />
+                                <InputError className="mt-2" message={errors.amount}/>
                             </div>
                             <div >
                                 <InputLabel htmlFor="loan" value={data.loan? "Loan":"Return"}/>
