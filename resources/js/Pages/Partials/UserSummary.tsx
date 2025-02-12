@@ -1,12 +1,15 @@
 
 import PrimaryButton from "@/Components/PrimaryButton";
-import { usePage } from "@inertiajs/react"
+import { Link, usePage } from "@inertiajs/react"
 import dayjs from "dayjs";
 import { useState } from "react";
 
 
 export default function UserSummary(){
     const transactions:any = usePage().props.transactions;
+    const paginated:any = usePage().props.paginated;
+
+
     const accumulatedResult = transactions.reduce((a:any,b:any)=> {
         if(b.loan){
             a.loan+=b.amount;
@@ -16,7 +19,7 @@ export default function UserSummary(){
         return a;
     },{loan:0,repay:0});
 
-    const [showAll, setShowAll ] = useState(false);
+    const [showAll, setShowAll ] = useState(paginated.current_page != 1);
 
     return(
         <div>
@@ -54,12 +57,19 @@ export default function UserSummary(){
 
             <div className="max-w-lg mx-auto">
                 {showAll ?
-                        transactions.map((transaction: any) => 
-                            <div className="flex justify-between items-center text-sm font-medium my-2 border-b border-gray-300 " key={transaction.id}>
-                                <div className="w-32">{transaction.people.name}</div> 
-                                <div className="">{transaction.amount}</div>
-                                <div>{dayjs(transaction.created_at).format('DD/MM/YYYY HH:mm')}</div> 
-                            </div>)                
+                        <div>
+                            {paginated.data.map((transaction: any) => 
+                                <div className="flex justify-between items-center text-sm font-medium my-2 border-b border-gray-300 " key={transaction.id}>
+                                    <div className="w-32">{transaction.people.name}</div> 
+                                    <div className="">{transaction.amount}</div>
+                                    <div>{dayjs(transaction.created_at).format('DD/MM/YYYY HH:mm')}</div> 
+                                </div>)   
+                            }             
+                        <div className="justify-between flex mx-4">
+                        <Link href={paginated.prev_page_url}>Previous</Link>
+                        <Link href={paginated.next_page_url}>Next</Link>
+                        </div>
+                        </div>
                         :
                         transactions.slice(0,5).map((transaction: any) => 
                             <div className="flex justify-between items-center text-sm font-medium my-2 border-b border-gray-300 " key={transaction.id}>

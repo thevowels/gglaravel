@@ -3,6 +3,7 @@ import { Head } from '@inertiajs/react';
 import UserSummary from './Partials/UserSummary';
 
 export default function Dashboard() {
+    console.log('rendered');
     return (
         <AuthenticatedLayout
             header={

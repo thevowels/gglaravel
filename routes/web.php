@@ -26,10 +26,11 @@ Route::get('/', function () {
     ]);
 });
 
-Route::get('/dashboard', function () {
+Route::get('/dashboard', function ( Request $request) {
     return Inertia::render('Dashboard',[
         'people'=>People::where('user_id',Auth::user()->id)->with('user:id,name,email')->get(),
-        'transactions' => Transaction::with('people:id,name')->where('user_id', Auth::user()->id)->orderBy('created_at', 'desc')->get(),
+        'transactions' => Transaction::with('people:id,name')->where('user_id', Auth::user()->id)->orderBy('created_at', 'desc')->limit(5)->get(),
+        'paginated' => Transaction::with('people:id,name')->where('user_id', Auth::user()->id)->orderBy('created_at', 'desc')->paginate(10),
 ]);
 })->middleware(['auth', 'verified'])->name('dashboard');
 
@@ -54,4 +55,9 @@ Route::resource('people', PeopleController::class)
 Route::resource('people.transactions', TransactionController::class)
     ->only(['index', 'store'])
     ->middleware('auth');
+
+Route::get('/dev',function(){
+    return Transaction::paginate(5);
+});
+
 require __DIR__.'/auth.php';
