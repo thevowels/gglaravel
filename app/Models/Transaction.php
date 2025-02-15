@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Events\TransactionCreated;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -16,6 +17,10 @@ class Transaction extends Model
         'amount',
         'loan',
         'people_id',
+    ];
+
+    protected $dispatchesEvents = [
+        'created' => TransactionCreated::class,
     ];
 
     public function people(): BelongsTo
